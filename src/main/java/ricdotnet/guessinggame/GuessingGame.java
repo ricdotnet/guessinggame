@@ -18,6 +18,8 @@ public class GuessingGame {
     static int user;
     static boolean finished = false;
     
+    static ArrayList<Integer> guesses = new ArrayList<Integer>();
+    
     //method to generate a new random cpu number
     public static int cpuNumber(){
         return cpu = rand.nextInt(100);
@@ -42,23 +44,32 @@ public class GuessingGame {
         
         cpuNumber(); //generate a new cpu number
         userGuess(); //ask user for a number
+        guesses.add(user);
         
         while(finished == false){
             if(user > cpu){
                 System.out.println("Your guess is higher than the cpu. \n"
                         + "Please try again: ");
                 user = input.nextInt();
+                guesses.add(user);
             }else if(user < cpu){
                 System.out.println("Your guess is lower than the cpu. \n"
                         + "Please try again: ");
                 user = input.nextInt();
+                guesses.add(user);
             }else{
                 System.out.println("Congratulations. Your guessed it!!! \n"
-                        + cpu + " was the golden number.");
+                        + cpu + " was the golden number. \n");
+                System.out.println("It took you " + guesses.size() + " chances to guess the number. \n"
+                        + "Your guesses were:");
+                for(int i = 0; i < guesses.size(); i++){
+                    System.out.print(guesses.get(i) + " ");
+                }
                 finished = true;
             }
         }//end while loop
         
+        System.out.println();
         System.out.println("Thanks for playing. :)");
         
     }//end main method
